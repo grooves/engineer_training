@@ -1,0 +1,6 @@
+DELETE
+FROM
+	Sales
+WHERE
+	SaleID = 1006
+;
