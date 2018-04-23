@@ -1,47 +1,103 @@
 class Product
-  @@name = 'Product'
-  def self.name
-    @@name
+  def initialize(name, price)
+    @name = name
+    @price = price
   end
 
-  def initialize(name)
-    @@name = name
+  def display_text
+    stock = stock? ? 'exsits' : 'none'
+    "product name: #{@name}, price: #{@price}, stock: #{stock}"
   end
 
-  def name
-    @@name
+  def stock?
+    raise "Must implement stock? in subclass"
   end
 end
 
 class DVD < Product
-  @@name = 'DVD'
-
-  def self.name
-    @@name
-  end
-
-  def upcase_name
-    @@name.upcase
+  def stock?
+    true
   end
 end
 
-puts Product.name
-product = Product.new('A great movie')
-puts product.name
-puts Product.name
+product = Product.new('A Great file', 1000)
+product.display_text
 
-puts Product.name
-puts DVD.name
+dvd = DVD.new('An Awesome film', 3000)
+puts dvd.display_text
 
-product = Product.new('A great movie')
-puts product.name
 
-dvd = DVD.new('An awesome film')
-puts dvd.name
-puts dvd.upcase_name
 
-puts Product.name
-puts DVD.name
+
+# class Product
+#   attr_reader :code, :name
+#   def initialize(code,name)
+#     @code = code
+#     @name = name
+#   end
+#
+#   def ==(other)
+#     if other.is_a?(Product)
+#       code == other.code
+#     else
+#       false
+#     end
+#   end
+# end
+#
+# a = Product.new('A-0001', 'AgreatMovie')
+# b = Product.new('B-0001', 'AnAwesomeFilm')
+# c = Product.new('A-0001', 'AgreatMovie')
+#
+# puts a == b
+# puts a == c
+
+
+
+# class Product
+#   @@name = 'Product'
+#   def self.name
+#     @@name
+#   end
+#
+#   def initialize(name)
+#     @@name = name
+#   end
+#
+#   def name
+#     @@name
+#   end
+# end
+#
+# class DVD < Product
+#   @@name = 'DVD'
+#
+#   def self.name
+#     @@name
+#   end
+#
+#   def upcase_name
+#     @@name.upcase
+#   end
+# end
+#
+# puts Product.name
+# product = Product.new('A great movie')
+# puts product.name
+# puts Product.name
+#
+# puts Product.name
+# puts DVD.name
+#
+# product = Product.new('A great movie')
+# puts product.name
+#
+# dvd = DVD.new('An awesome film')
+# puts dvd.name
+# puts dvd.upcase_name
+#
+# puts Product.name
+# puts DVD.name
 
 
 
