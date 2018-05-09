@@ -1,0 +1,3 @@
+inherit_gem:
+  forkwell_cop:
+    - 'config/default.yml'
