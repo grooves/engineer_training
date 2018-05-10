@@ -1,13 +1,17 @@
 class Bicycle
-  # ...
+  attr_reader :size
+
+  def initialize(args={})
+    @size       = args[:size]
+  end
 end
 
 class RoadBike < Bicycle
-  attr_reader :size, :tape_color
+  attr_reader :tape_color
 
   def initialize(args)
-    @size       = args[:size]
     @tape_color = args[:tape_color]
+    super(args)
   end
 
   # All bicycles have the same tire size and chain size as defaultvalue
@@ -33,6 +37,10 @@ class MountainBike < Bicycle
     super.merge(rear_shock: rear_shock)
   end
 end
+
+road_bike = RoadBike.new(
+  size: 'M', tape_color: 'red')
+puts road_bike.size
 
 mountain_bike = MountainBike.new(
   size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
