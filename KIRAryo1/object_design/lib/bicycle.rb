@@ -1,4 +1,8 @@
 class Bicycle
+  # ...
+end
+
+class RoadBike < Bicycle
   attr_reader :size, :tape_color
 
   def initialize(args)
