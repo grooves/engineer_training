@@ -7,8 +7,17 @@ class Bicycle
     @tire_size  = args[:tire_size] || default_tire_size
   end
 
+  def spares
+    { tire_size: tire_size,
+      chain:     chain}
+  end
+
   def default_chain
     '10-speed'
+  end
+
+  def default_tire_size
+    raise NoImplementedError
   end
 end
 
@@ -21,9 +30,7 @@ class RoadBike < Bicycle
   end
 
   def spares
-    { chain:      '10-speed',
-      tire_size:  '23',
-      tape_color: tape_color}
+    super.merge({ tape_color: tape_color})
   end
 
   def default_tire_size
@@ -60,7 +67,7 @@ class RecumbentBike < Bicycle
   end
 end
 
-bent = RecumbentBike.new
+# bent = RecumbentBike.new
 
 road_bike = RoadBike.new(
   size: 'M', tape_color: 'red')
