@@ -1,12 +1,28 @@
 class Bicycle
-  attr_reader :size, :chain, :tire_size
+  require_relative 'schedule'
+  attr_reader :schedule, :size, :chain, :tire_size
 
+  # add in Shedule to config initial value
   def initialize(args={})
+    @schedule   = args[:schedule]  || Schedule.new
     @size       = args[:size]
     @chain      = args[:chain]     || default_chain
     @tire_size  = args[:tire_size] || default_tire_size
 
     post_initialize(args)
+  end
+
+  # return true if bicycle is usable during given period
+  def schedulable?(start_date, end_date)
+    !scheduled?(start_date - lead_days, end_date)
+  end
+
+  def scheduled?(start_date, end_date)
+    schedule.scheduled?(self, start_date, end_date)
+  end
+
+  def lead_days
+    1
   end
 
   def post_initialize(args)
@@ -28,7 +44,7 @@ class Bicycle
   end
 
   def default_tire_size
-    raise NoImplementedError
+    '23'
   end
 end
 
@@ -85,17 +101,25 @@ class RecumbentBike < Bicycle
   end
 end
 
-bent = RecumbentBike.new(flag: 'tall and orange')
-puts bent.spares
+require 'date'
+starting = Date.parse("2015/09/04")
+ending   = Date.parse("2015/09/10")
 
-road_bike = RoadBike.new(
-  size: 'M', tape_color: 'red')
-puts road_bike.spares
+b = Bicycle.new
+puts b.schedulable?(starting, ending)
 
-mountain_bike = MountainBike.new(
-  size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
 
-puts mountain_bike.spares
+# bent = RecumbentBike.new(flag: 'tall and orange')
+# puts bent.spares
+#
+# road_bike = RoadBike.new(
+#   size: 'M', tape_color: 'red')
+# puts road_bike.spares
+#
+# mountain_bike = MountainBike.new(
+#   size: 'S', front_shock: 'Manitou', rear_shock: 'Fox')
+#
+# puts mountain_bike.spares
 
 # puts bike = Bicycle.new(
 #         size:       'M',
