@@ -12,19 +12,6 @@ class Bicycle
     post_initialize(args)
   end
 
-  # return true if bicycle is usable during given period
-  def schedulable?(start_date, end_date)
-    !scheduled?(start_date - lead_days, end_date)
-  end
-
-  def scheduled?(start_date, end_date)
-    schedule.scheduled?(self, start_date, end_date)
-  end
-
-  def lead_days
-    1
-  end
-
   def post_initialize(args)
     nil
   end
