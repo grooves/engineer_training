@@ -11,7 +11,11 @@ class Bicycle
   end
 end
 
+require 'forwardable'
 class Parts
+  extend Forwardable
+  def_delegators :@parts, :size, :each
+  include Enumerable
   attr_reader :parts
 
   def initialize(parts)
@@ -135,20 +139,5 @@ mountain_bike =
   Bicycle.new(size: 'XL', parts: Parts.new([chain, mountain_tire, front_shock, rear_shock]))
 
 puts mountain_bike.size
-p mountain_bike.spares
-
-# road_bike =
-#   Bicycle.new(
-#     size:  'L',
-#     parts: RoadBikeParts.new(tape_color: 'red'))
-#
-# puts road_bike.size
-# puts road_bike.spares
-#
-# mountain_bike =
-#   Bicycle.new(
-#     size:  'L',
-#     parts: MountainBikeParts.new(rear_shock: 'Fox'))
-#
-# puts mountain_bike.size
-# puts mountain_bike.spares
+puts mountain_bike.spares.size
+puts mountain_bike.parts.size
