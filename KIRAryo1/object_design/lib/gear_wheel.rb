@@ -35,16 +35,3 @@ class Wheel
     diameter * Math::PI
   end
 end
-
-puts Wheel.new(26, 1.5, 52, 11).gear_inches
-puts 'Inverse dependency'
-
-# @wheel = Wheel.new(26, 1.5)
-# puts @wheel.circumference
-#
-# puts Gear.new(52, 11).ratio
-# puts Gear.new(30, 27).ratio
-#
-# puts Gear.new(52, 11, @wheel).gear_inches
-
-[[1, 2, 3], [2, 3, 4]].map { |ary| ary.select(&:odd?) }.flatten
