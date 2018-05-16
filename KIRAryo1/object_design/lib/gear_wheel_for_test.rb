@@ -6,12 +6,12 @@ class Wheel
     @tire     = args[:tire]
   end
 
-  def diameter
+  def width
     rim + tire * 2
   end
 
   def gear_inches
-    gear.gear_inches(diameter)
+    gear.gear_inches(width)
   end
 end
 
