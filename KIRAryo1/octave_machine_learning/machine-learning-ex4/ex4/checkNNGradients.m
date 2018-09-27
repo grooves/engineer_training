@@ -36,7 +36,11 @@ numgrad = computeNumericalGradient(costFunc, nn_params);
 
 % Visually examine the two gradient computations.  The two columns
 % you get should be very similar. 
-disp([numgrad grad]);
+% disp([numgrad grad]);
+disp(reshape(numgrad(1:20), 4, 5));
+disp(reshape(numgrad(21:38), 6, 3));
+disp(reshape(grad(1:20), 4, 5));
+disp(reshape(grad(21:38), 6, 3));
 fprintf(['The above two columns you get should be very similar.\n' ...
          '(Left-Your Numerical Gradient, Right-Analytical Gradient)\n\n']);
 
