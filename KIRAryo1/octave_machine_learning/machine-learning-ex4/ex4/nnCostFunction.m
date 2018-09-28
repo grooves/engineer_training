@@ -84,8 +84,8 @@ for t = 1:m
 	% forward propagation
 	% STEP 1 forward propagation
 	Input  = X(t, :); % 1 * 401
-	Hidden_in = [1 Input * Theta1.']; % 1 * 26
-	Hidden_out = sigmoid(Hidden_in); % 1 * 26
+	Hidden_in = Input * Theta1.'; % 1 * 25
+	Hidden_out = [1 sigmoid(Hidden_in)]; % 1 * 26
 	Output = sigmoid(Hidden_out * Theta2.'); % 1 * 10
 
 	% backpropagation
@@ -93,15 +93,15 @@ for t = 1:m
 	delta_o = Output - Y(t, :); % Y is teacher data 1 * 10
 
 	% STEP 3 set error for hidden layer
-	delta_h = delta_o * Theta2 .* sigmoidGradient(Hidden_in); % 1 * 26
+	delta_h = delta_o * Theta2(:, 2:end) .* sigmoidGradient(Hidden_in); % 1 * 25
 
 	% STEP 4 update the gradient
 	Theta2_grad = Theta2_grad + delta_o.' * Hidden_out; % 10 * 26
-	Theta1_grad = Theta1_grad + delta_h(2:end).' * Input; % 25 * 401
+	Theta1_grad = Theta1_grad + delta_h.' * Input; % 25 * 401
 end
 % STEP 5 backpropagated gradient
-Theta1_grad = Theta1_grad / m;
-Theta2_grad = Theta2_grad / m;
+Theta1_grad = (Theta1_grad + lambda * masked_Theta1) / m;
+Theta2_grad = (Theta2_grad + lambda * masked_Theta2) / m;
 % update hypothesis with gradient given by backpropagations
 
 
